@@ -2,44 +2,51 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Shopping_Cart;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+	use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+	protected $fillable = [
+		'number_id',
+		'name',
+		'last_name',
+		'email',
+		'cellphone',
+		'password',
+	];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+	protected $appends = ['full_name'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+	protected $hidden = [
+		'password',
+	];
+
+	protected $casts = [
+		'created_at' => 'datetime:Y-m-d',
+		'updated_at' => 'datetime:Y-m-d',
+	];
+
+	// Accesor
+	public function getFullNameAttribute()
+	{
+		return "{$this->name} {$this->last_name}";
+	}
+
+	// mutadores
+	public function setPasswordAttribute($value)
+	{
+		$this->attributes['password'] = bcrypt($value);
+	}
+
+	// relations-------------------------------
+	public function Shopping_Carts()
+	{
+		return $this->hasMany(Shopping_Cart::class, 'user_id', 'id');
+	}
 }
