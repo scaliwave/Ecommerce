@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Shopping_Cart;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-	use HasApiTokens, HasFactory, Notifiable;
+	use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
 	protected $fillable = [
 		'number_id',
@@ -45,6 +46,8 @@ class User extends Authenticatable
 	}
 
 	// relations-------------------------------
+
+	// compras del usuario
 	public function Shopping_Carts()
 	{
 		return $this->hasMany(Shopping_Cart::class, 'user_id', 'id');

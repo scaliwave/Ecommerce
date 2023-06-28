@@ -2,18 +2,27 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Shopping_CartController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+// Users
+Route::group(['prefix' => 'Users', 'controller' => UserController::class], function () {
+	Route::get('/GetAllUsers', 'getAllUsers');
+	Route::get('/GetAnUser/{user}', 'getAnUser');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+	Route::get('/GetAllShoppingsByUser/{user}', 'getAllShoppingsByUser');
+	Route::get('/GetAllUsersWithShoppings', 'getAllUsersWithShoppings');
+
+	Route::post('/CreateUser', 'createUser');
+	Route::put('/UpdateUser/{user}', 'updateUser');
+	Route::delete('/DeleteUser/{user}', 'deleteUser');
+
+});
+
+
+//shoppings
+
+Route::group(['prefix' => 'Shoppings', 'controller' => Shopping_CartController::class], function () {
+	Route::post('/CreateShoppingCart', 'createShoppingCart');
+
 });

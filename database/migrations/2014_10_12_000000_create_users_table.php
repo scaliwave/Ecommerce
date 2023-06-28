@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('name');
 			$table->string('last_name');
             $table->string('email')->unique();
-			$table->string('cellphone');
+			$table->string('cellphone')->unique();
             $table->string('password');
             $table->timestamps();
 			$table->softDeletes();
