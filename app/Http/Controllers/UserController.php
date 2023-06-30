@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 
+
 class UserController extends Controller
 {
 	public function getAllUsers()
@@ -36,7 +37,10 @@ class UserController extends Controller
 	{
 		$user = new User($request->all());
 		$user->save();
-		return response()->json(['user' => $user->all()], 201);
+		if ($request->ajax())
+				return response()->json(['user' => $user], 201);
+
+			return back()->with('success', 'Usuario Creado');
 	}
 
 	public function updateUser(User $user, UpdateUserRequest $request)
