@@ -22,7 +22,7 @@
     {{-- Menu --}}
     <x-menu />
     {{-- Content --}}
-    <main id="app">
+    <main id="app" class="container my-5">
         {{ $slot }}
     </main>
 </body>

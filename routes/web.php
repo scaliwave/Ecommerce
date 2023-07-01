@@ -17,7 +17,7 @@ Route::get('/', [ProductController::class, 'showHomeWithProducts'])->name('home'
 // Products
 Route::group(['prefix' => 'Products', 'controller' => ProductController::class], function () {
 	Route::get('/GetProductsByCategory', 'getProductsByCategory');
-	// Route::get('/GetAnUser/{user}', 'getAnUser');
+	Route::get('/GetAnProduct/{product}', 'getAnProduct');
 
 	// Route::get('/GetAllShoppingsByUser/{user}', 'getAllShoppingsByUser');
 	// Route::get('/GetAllUsersWithShoppings', 'getAllUsersWithShoppings');
