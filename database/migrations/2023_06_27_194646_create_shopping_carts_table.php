@@ -13,6 +13,7 @@ return new class extends Migration
 			$table->bigInteger('product_id')->unsigned();
 			$table->bigInteger('user_id')->unsigned();
 			$table->integer('cant')->unsigned();
+			$table->bigInteger('price')->unsigned();
             $table->timestamps();
 			$table->softDeletes();
 

@@ -1,47 +1,21 @@
-// import './bootstrap';
-// import { createApp } from 'vue';
-// import VueRouter from 'vue-router';
-
-// // components------------------------------------------------------
-// import ProductsList from './components/Products/Index.vue';
-// import AllProductsOFCategory from './components/Products/ProducDetails.vue';
-
-
-// const app = createApp({
-// 	components: {
-// 		ProductsList
-// 	}
-// });
-
-
-// app.mount('#app');
-
 import './bootstrap';
 import { createApp } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import vSelect from 'vue-select';
 
-// components ---------------------------------------------
+// components------------------------------------------------------
 import ProductsList from './components/Products/Index.vue';
 import AllProductsOFCategory from './components/Products/AllProductsOFCategory.vue';
+import ShoppingCart from './components/ShoppingCart/Index.vue';
+
 
 const app = createApp({
-  components: {
-    ProductsList,
-    AllProductsOFCategory
-  }
+	components: {
+		ProductsList,
+		AllProductsOFCategory,
+		ShoppingCart
+	}
 });
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/AllProductsOFCategory/:id',
-      name: 'all-products-of-category',
-      component: AllProductsOFCategory
-    }
-  ]
-});
-
-app.use(router);
-
+app.component('v-select', vSelect)
 app.mount('#app');
+

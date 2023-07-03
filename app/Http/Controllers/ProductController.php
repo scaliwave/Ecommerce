@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
 	public function showHomeWithProducts()
 	{
-		$productsByCategory = $this->getProductsByCategory();
-		return view('home', compact('productsByCategory'));
+		$is_logged = Auth::check();
+		$id_user = Auth::id();
+		return view('home', compact('is_logged', 'id_user'));
 	}
 
 	public function getProductsByCategory()

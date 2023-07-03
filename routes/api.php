@@ -11,7 +11,6 @@ Route::group(['prefix' => 'Users', 'controller' => UserController::class], funct
 	Route::get('/GetAllUsers', 'getAllUsers');
 	Route::get('/GetAnUser/{user}', 'getAnUser');
 
-	Route::get('/GetAllShoppingsByUser/{user}', 'getAllShoppingsByUser');
 	Route::get('/GetAllUsersWithShoppings', 'getAllUsersWithShoppings');
 
 	Route::post('/CreateUser', 'createUser');
@@ -36,7 +35,8 @@ Route::group(['prefix' => 'Products', 'controller' => ProductController::class],
 
 
 //shoppings
-Route::group(['prefix' => 'Shoppings', 'controller' => Shopping_CartController::class], function () {
+Route::group(['prefix' => 'ShoppingCart', 'controller' => Shopping_CartController::class], function () {
 	Route::post('/CreateShoppingCart', 'createShoppingCart');
-
+	Route::get('/MyCart/{user}', 'getMyShoppingCart');
+	Route::post('/UpdateShoppingCart/{cart}', 'updateShoppingCart');
 });

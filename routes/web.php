@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Shopping_CartController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
+
 
 // Home
 Route::get('/', [ProductController::class, 'showHomeWithProducts'])->name('home');
@@ -18,15 +19,18 @@ Route::get('/', [ProductController::class, 'showHomeWithProducts'])->name('home'
 Route::group(['prefix' => 'Products', 'controller' => ProductController::class], function () {
 	Route::get('/GetProductsByCategory', 'getProductsByCategory');
 	Route::get('/GetAnProduct/{product}', 'getAnProduct');
+});
 
-	// Route::get('/GetAllShoppingsByUser/{user}', 'getAllShoppingsByUser');
-	// Route::get('/GetAllUsersWithShoppings', 'getAllUsersWithShoppings');
-
-	// Route::post('/CreateUser', 'createUser');
-	// Route::put('/UpdateUser/{user}', 'updateUser');
-	// Route::delete('/DeleteUser/{user}', 'deleteUser');
+//shopping_cart
+Route::group(['prefix' => 'ShoppingCart', 'controller' => Shopping_CartController::class], function () {
+	Route::post('/CreateShoppingCart', 'createShoppingCart');
+	Route::get('/MyCart/{user}', 'getMyShoppingCart')->name('shoppingCart');
+	Route::put('/UpdateShoppingCart/{user}', 'updateShoppingCart');
 
 });
+
+
+
 
 // auth ----------------------------------------------------------------
 // Login Routes...

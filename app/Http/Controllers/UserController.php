@@ -22,12 +22,6 @@ class UserController extends Controller
 		return response()->json(['users' => $users], 200);
 	}
 
-	public function getAllShoppingsByUser(User $user)
-	{
-		$shoppingCarts = $user->load('Shopping_Carts.Product.Category')->Shopping_Carts;
-		return response()->json(['shopping_carts' => $shoppingCarts], 200);
-	}
-
 	public function getAnUser(User $user)
 	{
 		return response()->json(['users' => $user], 200);
