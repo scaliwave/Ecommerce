@@ -37,4 +37,16 @@ class Shopping_CartController extends Controller
 			return response()->json(['error' => 'No se encontró el carrito de compras'], 404);
 		}
 	}
+	public function deleteShoppingCart(User $user, $product)
+	{
+		$shoppingCart = $user->Shopping_Carts()
+			->where('product_id', $product)
+			->first();
+			
+		if ($shoppingCart) {
+			$shoppingCart->delete();
+		} else {
+			return response()->json(['error' => 'No se encontró el carrito de compras'], 404);
+		}
+	}
 }

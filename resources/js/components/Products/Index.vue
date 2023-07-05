@@ -1,13 +1,16 @@
 <template>
 	<div class="container-responsive ">
-		<div class="row my-4 " v-for="(products, index) in productsByCategory" :key="index" >
-			<div class="d-flex align-items-center">
+		<div class="row my-4" v-for="(products, index) in productsByCategory" :key="index">
+			<div class="d-flex align-items-center mb-2">
 				<h3>{{ index }}</h3>
-				<a href="" class="mx-2 text-decoration-none">Ver más</a>
+				<a @click="getAllProducts(index)" class="mx-2 text-decoration-none" style="cursor: pointer">
+					<p>Ver todas</p>
+				</a>
 			</div>
 
-			<div v-for="product in products" :key="product.id" class="d-flex col card mx-2 shadow p-4 mb-5 bg-body-tertiary rounded" @click="openModal(product.id)" style="cursor: pointer">
-				<div class="container" >
+			<div v-for="product in products" :key="product.id" class="d-flex col card mx-2 mb-3 rounded"
+				@click="openModal(product.id)" style="cursor: pointer">
+				<div class="container">
 					<img src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
 						class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
 						alt="">
@@ -17,7 +20,6 @@
 						{{ product.name }}
 
 					</div>
-					<i class="bi bi-cart3"></i>
 				</div>
 			</div>
 		</div>
@@ -29,7 +31,7 @@
 
 		<!-- Load -->
 		<section v-if="!load_data" class="d-flex justify-content-center my-3">
-			<div class="spinner-border" role="status">
+			<div class="spinner-border text-primary" role="status">
 				<span class="visually-hidden">Loading...</span>
 			</div>
 		</section>
@@ -66,8 +68,8 @@ export default {
 		},
 		async getProductsBycategory() {
 			try {
-				const { data } = await axios.get('Products/GetProductsByCategory');
-				this.productsByCategory = { ...data };
+				const { data } = await axios.get('Products/GetProductsByCategories');
+				this.productsByCategory = { ...data.productsByCategory };
 				this.load_data = true;
 			} catch (error) { console.error(error) }
 		},
@@ -94,11 +96,13 @@ export default {
 					this.load_modal = false
 				})
 			}, 200)
-
 		},
 		// formatea el precio del producto
 		getNumberFormat(price) {
 			return new Intl.NumberFormat("es-CL").format(price)
+		},
+		getAllProducts(category) {
+			window.location.href = `/Products/GetAllProductsOFCategory/${category}`
 		}
 	}
 

@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-light bg-warning shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: hsl(58, 100%, 68%)">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            Mercado Libre
+            <h4>Mercado Libre</h4>
         </a>
 
         <!-- Hamburguesa -->
@@ -42,6 +42,25 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                            {{-- Users --}}
+                            <a class="dropdown-item" href="{{ route('products') }}">
+                                Usuarios
+                            </a>
+
+                            {{-- Products --}}
+                            <a class="dropdown-item" href="{{ route('products') }}">
+                                Productos
+                            </a>
+
+							{{-- Categories --}}
+                            <a class="dropdown-item" href="{{ route('products') }}">
+                                Categorias
+                            </a>
+
+
+
+                            {{-- Logout --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                             	document.getElementById('logout-form').submit();">
@@ -51,6 +70,8 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
+
+
                         </div>
                     </li>
                 @endguest
@@ -82,10 +103,10 @@
         @guest
         // Si el usuario no está autenticado, redirigir al login
         window.location.href = "{{ route('login') }}";
-        @else
+    @else
         // redirigir al carrito
         const id_user = @json(Auth::id());
         window.location.href = `/ShoppingCart/MyCart/${id_user}`;
-        @endguest
+    @endguest
     }
 </script>

@@ -1,29 +1,97 @@
 <template>
-	<div>hola</div>
+	<div class="container">
+		<h3>Todos los articulos de {{ category }}</h3>
+		<div class="d-flex flex-wrap">
+			<div class="col-4 mb-4" v-for="(product, index) in products_data" :key="product.id">
+				<div class="card mx-2 shadow p-4 bg-body-tertiary rounded" style="cursor: pointer"
+					@click="openModal(product.id)">
+
+					<img src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+						class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}">
+					<div>
+						<hr>
+						<h4>$ {{ getNumberFormat(product.price) }}</h4>
+						{{ product.name }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+		<section v-if="load_modal">
+			<modal-product :product_id="product_id" :is_auth="is_auth" :id_user="id_user" />
+		</section>
+
+		<!-- Load -->
+		<section v-if="!load_data" class="d-flex justify-content-center my-3">
+			<div class="spinner-border text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</section>
+	</div>
 </template>
 
 <script>
+import ModalProduct from './ModalProduct.vue';
+
 export default {
-	// name: 'product-details',
 	data() {
-		return {};
+		return {
+			products_data: [],
+			category: '',
+			load_modal: false,
+			modal: null,
+			content: null,
+			product_id: null,
+			is_auth: false,
+			id_user: null,
+			load_data: false,
+		}
 	},
-	props: {},
+	props: ['products', 'category_name', 'is_logged', 'active_user'],
+	components: {
+		ModalProduct
+	},
+	created() {
+		this.index()
+	},
+	methods: {
+		index() {
+			setTimeout(() => {
+				this.products_data = [...this.products]
+				this.load_data = true
+			}, 250)
+			this.load_data = false
+			this.category = this.category_name
+			this.authUser()
+		},
+		authUser() {
+			this.is_auth = this.is_logged
+			this.id_user = this.active_user
+		},
 
-	components: {},
+		openModal(productId) {
+			this.product_id = productId
+			this.content = 'productDetails'
+			this.load_modal = true
 
-	created() {},
+			setTimeout(() => {
+				//openModal
+				this.modal = new bootstrap.Modal(document.getElementById('product_modal'), {
+					keyboard: false,
+				})
+				this.modal.show()
 
-	mounted() {},
-
-	methods: {},
-
-	computed: {},
-
-	watch: {},
-
-	directives: {},
-
-	filters: {}
+				//limpiar datos del modal
+				const modal = document.getElementById('product_modal')
+				modal.addEventListener('hidden.bs.modal', () => {
+					this.load_modal = false
+				})
+			}, 200)
+		},
+		// formatea el precio del producto
+		getNumberFormat(price) {
+			return new Intl.NumberFormat("es-CL").format(price)
+		},
+	}
 };
 </script>
