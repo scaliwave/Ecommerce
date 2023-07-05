@@ -25,7 +25,7 @@
 						<!-- seccion derecha -->
 						<div class="mx-3 d-flex flex-column">
 							<p>Hasta 48 cuotas</p>
-							<img src="mastercard.jpg" style="height: 80px" alt="">
+							<img src="/mastercard.jpg" style="height: 80px" alt="">
 							<h5 class="my-3">Stock disponible: {{ data.stock }}</h5>
 
 							<section v-if="!is_added" class="mb-3 d-flex flex-column">
@@ -87,7 +87,7 @@ export default {
 	methods: {
 		async index() {
 			try {
-				const { data } = await axios.get(`Products/GetAnProduct/${this.product_id}`);
+				const { data } = await axios.get(`/Products/GetAnProduct/${this.product_id}`);
 				this.data = data.product
 				// Esperar a que carguen los datos para mostrarlos
 				this.is_load = true;
@@ -108,7 +108,7 @@ export default {
 						price: this.data.price * this.product_cant
 					}
 					try {
-						await axios.post('ShoppingCart/CreateShoppingCart', data)
+						await axios.post('/ShoppingCart/CreateShoppingCart', data)
 						this.is_added = true
 					} catch (error) { console.log(error) }
 				}
@@ -116,7 +116,7 @@ export default {
 					this.warning_cant = true
 			}
 			else
-				window.location.href = 'login'
+				window.location.href = '/login'
 		},
 		//validar que no exista cantidad negativa
 		validateCant() {
@@ -124,7 +124,7 @@ export default {
 				this.product_cant = 1
 		},
 		getMyCart() {
-			window.location.href = `ShoppingCart/MyCart/${this.id_user}`
+			window.location.href = `/ShoppingCart/MyCart/${this.id_user}`
 		}
 	}
 }

@@ -10,7 +10,7 @@
 							<div class="d-flex flex-column">
 								<img src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
 									class="img-fluid" style="width: 60px;" alt="">
-								<button class="btn text-primary ">Eliminar</button>
+								<button class="btn text-primary" @click="deleteProduct(product.product.id)">Eliminar</button>
 							</div>
 
 						</td>
@@ -151,6 +151,15 @@ export default {
 				total += product.price
 			})
 			this.total = total
+		},
+		async deleteProduct(product_id) {
+			try {
+				await axios.delete(`/ShoppingCart/DeleteShoppingCart/${this.active_user}/${product_id}`)
+
+				// recargar la pagina
+				location.reload();
+
+			} catch (error) { console.log(error) }
 		},
 		// cambiar formato del precio
 		getNumberFormat(price) {
