@@ -1,17 +1,19 @@
 <template>
-	<div class="container">
-		<h3>Todos los articulos de {{ category }}</h3>
-		<div class="d-flex flex-wrap">
-			<div class="col-4 mb-4" v-for="(product, index) in products_data" :key="product.id">
-				<div class="card mx-2 shadow p-4 bg-body-tertiary rounded" style="cursor: pointer"
-					@click="openModal(product.id)">
+	<div class="container-responsive card shadow p-5">
+		<h3 class="mb-4">Todos los articulos de {{ category }}</h3>
+		<div class="list-group">
+			<div class="list-group-item" v-for="(product, index) in products_data" :key="product.id">
+				<div class="d-flex align-items-center">
 
-					<img src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
-						class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}">
-					<div>
-						<hr>
+					<img v-if="(product.image)" :src="'/storage/images/' + product.image"
+						class="img-fluid" style="height: 150px">
+					<img v-else src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+						class="img-fluid" style="height: 150px">
+
+					<div class="mx-3" style="cursor: pointer" @click="openModal(product.id)">
+						<h5 class="mb-3">{{ product.name }}</h5>
 						<h4>$ {{ getNumberFormat(product.price) }}</h4>
-						{{ product.name }}
+						<h6 class="text-success mt-2">Envio gratis</h6>
 					</div>
 				</div>
 			</div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Shopping_CartController;
@@ -24,8 +25,10 @@ Route::group(['prefix' => 'Products', 'controller' => ProductController::class],
 	//admin Routes
 	Route::get('/', 'showProducts')->name('products');
 	Route::get('/GetAllProducts', 'getAllProducts');
+	Route::get('/GetAProduct/{product}', 'getAProduct');
 	Route::post('/SaveProduct', 'saveProduct');
-	Route::put('/UpdateProduct({product}', 'updateProduct');
+	Route::post('/UpdateProduct/{product}', 'updateProduct');
+	Route::delete('/DeleteAProduct/{product}', 'deleteProduct');
 
 });
 
@@ -35,6 +38,12 @@ Route::group(['prefix' => 'ShoppingCart', 'controller' => Shopping_CartControlle
 	Route::get('/MyCart/{user}', 'getMyShoppingCart')->name('shoppingCart');
 	Route::put('/UpdateShoppingCart/{user}', 'updateShoppingCart');
 	Route::delete('/DeleteShoppingCart/{user}/{product}', 'deleteShoppingCart');
+
+});
+
+// categories
+Route::group(['prefix' => 'Categories', 'controller' => CategoryController::class], function () {
+	Route::get('/GetAllCategories', 'getAllCategories');
 
 });
 

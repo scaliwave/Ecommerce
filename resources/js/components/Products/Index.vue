@@ -1,25 +1,27 @@
 <template>
-	<div class="container-responsive ">
+	<div class="container">
 		<div class="row my-4" v-for="(products, index) in productsByCategory" :key="index">
 			<div class="d-flex align-items-center mb-2">
 				<h3>{{ index }}</h3>
 				<a @click="getAllProducts(index)" class="mx-2 text-decoration-none" style="cursor: pointer">
-					<p>Ver todas</p>
+					<h6>Ver todas</h6>
 				</a>
 			</div>
 
-			<div v-for="product in products" :key="product.id" class="d-flex col card mx-2 mb-3 rounded"
-				@click="openModal(product.id)" style="cursor: pointer">
-				<div class="container">
-					<img src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
-						class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
-						alt="">
-					<div>
-						<hr>
-						<h4>$ {{ getNumberFormat(product.price) }}</h4>
-						{{ product.name }}
+			<div v-for="product in products" :key="product.id" class="col-md card mx-2" @click="openModal(product.id)"
+				style="cursor: pointer">
 
-					</div>
+				<img v-if="(product.image)"
+					:src= "'/storage/images/' + product.image"
+					alt="producto" class="img-fluid">
+				<img v-else
+					src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+					alt="producto" class="img-fluid">
+
+				<div class="my-3">
+					<h4>$ {{ getNumberFormat(product.price) }}</h4>
+					{{ product.name }}
+
 				</div>
 			</div>
 		</div>

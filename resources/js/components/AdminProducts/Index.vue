@@ -20,7 +20,7 @@
 
 			<!-- Modal -->
 			<section v-if="load_modal">
-				<modal />
+				<modal :product_data="this.product"/>
 			</section>
 		</div>
 	</div>
@@ -42,6 +42,7 @@ export default {
 			modal: null,
 			products: [],
 			load: false,
+			product: null,
 		}
 	},
 	created() {
@@ -73,6 +74,7 @@ export default {
 				const modal = document.getElementById('products_modal')
 				modal.addEventListener('hidden.bs.modal', () => {
 					this.load_modal = false
+					this.product = null
 				})
 			}, 200)
 		},
@@ -80,6 +82,10 @@ export default {
 			this.modal.hide()
 			this.getProducts()
 		},
+		editProduct(product) {
+			this.product = product
+			this.openModal()
+		}
 	}
 }
 </script>

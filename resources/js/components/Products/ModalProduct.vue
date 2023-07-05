@@ -11,8 +11,12 @@
 
 						<!-- seccion izquierda -->
 						<div class="card" style="width: 20rem;">
-							<img src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+
+							<img v-if="(data.image)" :src="'/storage/images/' + data.image"
 								class="card-img-top" alt="imagen">
+							<img v-else src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+								class="card-img-top" alt="imagen">
+
 							<div class="card-body">
 								<h2 class="card-title">{{ data.name }}</h2>
 								<h4 class="mt-3">$ {{ getNumberFormat(data.price) }}</h4>

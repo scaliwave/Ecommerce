@@ -19,11 +19,15 @@ class Shopping_Cart extends Model
 		'cant',
 		'price'
 	];
+
+	// relaciones ---------------------------------
+	
+	// producto agregado al carrito
 	public function Product()
 	{
 		return $this->belongsTo(Product::class, 'product_id', 'id');
 	}
-
+	// carrito de un usuario
 	public function User()
 	{
 		return $this->belongsTo(User::class, 'user_id', 'id');

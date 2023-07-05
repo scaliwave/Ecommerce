@@ -42,9 +42,10 @@ class Shopping_CartController extends Controller
 		$shoppingCart = $user->Shopping_Carts()
 			->where('product_id', $product)
 			->first();
-			
+
 		if ($shoppingCart) {
 			$shoppingCart->delete();
+			return response()->json([], 204);
 		} else {
 			return response()->json(['error' => 'No se encontró el carrito de compras'], 404);
 		}
