@@ -77,10 +77,6 @@
 			</div>
 			<hr>
 		</div>
-		<div class="d-flex flex-row-reverse m-3 px-4">
-			<button class="btn btn-primary">Continuar compra</button>
-		</div>
-
 	</div>
 </template>
 
