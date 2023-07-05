@@ -17,8 +17,16 @@ Route::get('/', [ProductController::class, 'showHomeWithProducts'])->name('home'
 
 // Products
 Route::group(['prefix' => 'Products', 'controller' => ProductController::class], function () {
-	Route::get('/GetProductsByCategory', 'getProductsByCategory');
+	Route::get('/GetProductsByCategories', 'getProductsByCategories');
+	Route::get('/GetAllProductsOFCategory/{category_name}', 'getAllProductsOFCategory');
 	Route::get('/GetAnProduct/{product}', 'getAnProduct');
+
+	//admin Routes
+	Route::get('/', 'showProducts')->name('products');
+	Route::get('/GetAllProducts', 'getAllProducts');
+	Route::post('/SaveProduct', 'saveProduct');
+	Route::put('/UpdateProduct({product}', 'updateProduct');
+
 });
 
 //shopping_cart
@@ -26,6 +34,7 @@ Route::group(['prefix' => 'ShoppingCart', 'controller' => Shopping_CartControlle
 	Route::post('/CreateShoppingCart', 'createShoppingCart');
 	Route::get('/MyCart/{user}', 'getMyShoppingCart')->name('shoppingCart');
 	Route::put('/UpdateShoppingCart/{user}', 'updateShoppingCart');
+	Route::delete('/DeleteShoppingCart/{user}/{product}', 'deleteShoppingCart');
 
 });
 
@@ -50,12 +59,6 @@ Route::group(['controller' => RegisterController::class], function () {
 		->name('register');
 	Route::post('register', 'registerUser');
 });
-
-// User
-// Route::group(['controller' => UserController::class], function () {
-
-// });
-
 
 // Password Reset Routes...
 Route::group(['controller' => ForgotPasswordController::class], function () {

@@ -4,15 +4,17 @@ import vSelect from 'vue-select';
 
 // components------------------------------------------------------
 import ProductsList from './components/Products/Index.vue';
-import AllProductsOFCategory from './components/Products/AllProductsOFCategory.vue';
+import AllProductsList from './components/Products/AllProductsOFCategory.vue';
 import ShoppingCart from './components/ShoppingCart/Index.vue';
+import ProductsAdmin from './components/AdminProducts/Index.vue';
 
 
 const app = createApp({
 	components: {
 		ProductsList,
-		AllProductsOFCategory,
-		ShoppingCart
+		AllProductsList,
+		ShoppingCart,
+		ProductsAdmin
 	}
 });
 
