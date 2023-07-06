@@ -34,7 +34,7 @@ class CreateUserRequest extends FormRequest
 			'last_name.string' => 'El apellido no es valido.',
 
 			'number_id.required' => 'El documento es requerido.',
-			'number_id.numeric' => 'El documento no es un numero.',
+			'number_id.numeric' => 'El documento debe ser un número.',
 			'number_id.unique' => 'El documento ya fue tomado.',
 
 

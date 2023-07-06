@@ -10,6 +10,10 @@ use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
+	public function showUsers()
+	{
+		return view('components.AdminUsers.index');
+	}
 	public function getAllUsers()
 	{
 		$users = User::get();

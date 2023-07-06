@@ -130,11 +130,11 @@ export default {
 				}
 				else {
 					console.log(error)
-					// swal.fire({
-					// 	icon: 'error',
-					// 	title: 'Oops...',
-					// 	text: 'Something went wrong!'
-					// })
+					swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Something went wrong!'
+					})
 				}
 			}
 		},

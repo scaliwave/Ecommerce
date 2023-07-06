@@ -11,12 +11,12 @@
 		</thead>
 		<tbody>
 			<tr v-for="(product, index) in products" :key="index">
-				<th v-if="(product.image)"><img :src="'/storage/images/' + product.image" class="img-fluid"
-						style="width: 80px;" alt=""></th>
+				<td v-if="(product.image)"><img :src="'/storage/images/' + product.image" class="img-fluid"
+						style="width: 80px;" alt=""></td>
 
-				<th v-else><img
+				<td v-else><img
 						src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
-						class="img-fluid" style="width: 80px;" alt=""></th>
+						class="img-fluid" style="width: 80px;" alt=""></td>
 				<td>{{ product.name }}</td>
 				<td>$ {{ getNumberFormat(product.price) }}</td>
 				<td>{{ product.stock }}</td>

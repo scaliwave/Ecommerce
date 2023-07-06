@@ -7,6 +7,7 @@ import ProductsList from './components/Products/Index.vue';
 import AllProductsList from './components/Products/AllProductsOFCategory.vue';
 import ShoppingCart from './components/ShoppingCart/Index.vue';
 import ProductsAdmin from './components/AdminProducts/Index.vue';
+import UsersAdmin from './components/AdminUsers/Index.vue';
 
 
 const app = createApp({
@@ -14,7 +15,8 @@ const app = createApp({
 		ProductsList,
 		AllProductsList,
 		ShoppingCart,
-		ProductsAdmin
+		ProductsAdmin,
+		UsersAdmin
 	}
 });
 

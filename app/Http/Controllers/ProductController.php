@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -81,7 +82,7 @@ class ProductController extends Controller
 		$product->save();
 		return response()->json(['product' => $product->load('category')], 201);
 	}
-	public function updateProduct(Product $product, Request $request)
+	public function updateProduct(Product $product, UpdateProductRequest $request)
 	{
 		$requestAll = $request->all();
 		$this->uploadImages($request, $product);
