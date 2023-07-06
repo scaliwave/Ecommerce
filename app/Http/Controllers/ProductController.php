@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Product\CreateProductRequest;
 
 class ProductController extends Controller
 {
@@ -73,7 +74,7 @@ class ProductController extends Controller
 		return response()->json(['product' => $product], 200);
 	}
 
-	public function saveProduct(Request $request)
+	public function saveProduct(CreateProductRequest $request)
 	{
 		$product = new Product($request->all());
 		$this->uploadImages($request, $product);

@@ -11,9 +11,7 @@
 			<div v-for="product in products" :key="product.id" class="col-md card mx-2" @click="openModal(product.id)"
 				style="cursor: pointer">
 
-				<img v-if="(product.image)"
-					:src= "'/storage/images/' + product.image"
-					alt="producto" class="img-fluid">
+				<img v-if="(product.image)" :src="'/storage/images/' + product.image" alt="producto" class="img-fluid">
 				<img v-else
 					src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
 					alt="producto" class="img-fluid">

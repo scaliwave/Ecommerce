@@ -11,7 +11,12 @@
 		</thead>
 		<tbody>
 			<tr v-for="(product, index) in products" :key="index">
-				<th>{{ product.image }}</th>
+				<th v-if="(product.image)"><img :src="'/storage/images/' + product.image" class="img-fluid"
+						style="width: 80px;" alt=""></th>
+
+				<th v-else><img
+						src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+						class="img-fluid" style="width: 80px;" alt=""></th>
 				<td>{{ product.name }}</td>
 				<td>$ {{ getNumberFormat(product.price) }}</td>
 				<td>{{ product.stock }}</td>
@@ -25,8 +30,6 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2';
-
 export default {
 	props: ['products_data'],
 	data() {
@@ -57,7 +60,7 @@ export default {
 					showCancelButton: true,
 					confirmButtonText: 'Eliminar'
 				})
-				if(!result.isConfirmed) return
+				if (!result.isConfirmed) return
 
 				await axios.delete(`/Products/DeleteAProduct/${product.id}`)
 				this.$parent.getProducts()
