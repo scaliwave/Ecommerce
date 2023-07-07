@@ -45,6 +45,7 @@ Route::group(['prefix' => 'Products', 'controller' => ProductController::class],
 	Route::group(['middleware' => ['auth', 'role:admin']], function () {
 		Route::get('/', 'showProducts')->name('products');
 		Route::get('/GetAllProducts', 'getAllProducts');
+		Route::get('/GetAllProductsDataTable', 'getAllProductsForDataTable');
 		Route::get('/GetAProduct/{product}', 'getAProduct');
 		Route::post('/SaveProduct', 'saveProduct');
 		Route::post('/UpdateProduct/{product}', 'updateProduct');

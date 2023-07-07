@@ -102,7 +102,6 @@ export default {
 		async storeProduct() {
 			try {
 				const product = this.loadFormData()
-				console.log(product)
 				if (this.is_create) {
 					await axios.post('/Products/SaveProduct', product)
 					this.$parent.closeModal()

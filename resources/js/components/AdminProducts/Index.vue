@@ -7,12 +7,12 @@
 		</div>
 
 		<div class="card-body">
-			<table-component/>
+			<table-component ref="table" />
 		</div>
 
 		<!-- Modal -->
 		<section v-if="load_modal">
-			<modal :product_data="this.product" />
+			<modal :product_data="product" />
 		</section>
 	</div>
 </template>
@@ -53,6 +53,8 @@ export default {
 		},
 		closeModal() {
 			this.modal.hide()
+			this.$refs.table.datatable.destroy()
+			this.$refs.table.index()
 		},
 		editProduct(product) {
 			this.product = product

@@ -25,6 +25,7 @@ Route::group(['prefix' => 'Products', 'controller' => ProductController::class],
 	Route::get('/GetAllProductsOFCategory/{categoryName}', 'getAllProductsOFCategory');
 
 	Route::get('/GetAllProducts', 'getAllProducts');
+	Route::get('/GetAllProductsDataTable', 'getAllProductsForDataTable');
 
 });
 

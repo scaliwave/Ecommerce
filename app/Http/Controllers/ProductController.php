@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 
@@ -67,6 +68,27 @@ class ProductController extends Controller
 	{
 		$products = Product::get();
 		return response()->json(['products' => $products], 200);
+	}
+	public function getAllProductsForDataTable()
+	{
+		$products = Product::with('Category');
+		return DataTables::of($products)
+		->addColumn('action', function($row){
+			return "<a
+				href='#'
+				onclick='event.preventDefault();'
+				data-id='{$row->id}'
+				role='edit'
+				class='btn btn-warning btn-sm'>Edit</a>
+				<a
+				href='#'
+				onclick='event.preventDefault();'
+				data-id='{$row->id}'
+				role='delete'
+				class='btn btn-danger btn-sm'>Delete</a>";
+		})
+		->rawColumns(['action'])
+		->make();
 	}
 
 	public function getAProduct(Product $product)
