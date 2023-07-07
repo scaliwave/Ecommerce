@@ -14,6 +14,7 @@
 							<th>CC</th>
 							<th>Nombres</th>
 							<th>Apellidos</th>
+							<th>Celular</th>
 							<th>Correo</th>
 							<th>Acciones</th>
 						</tr>
@@ -23,6 +24,7 @@
 							<th>{{ user.number_id }}</th>
 							<td>{{ user.name }}</td>
 							<td>{{ user.last_name }}</td>
+							<td>{{ user.cellphone }}</td>
 							<td>{{ user.email }}</td>
 							<td>
 								<button class="btn btn-warning me-2" @click="editUser(user)">Editar</button>
@@ -42,7 +44,7 @@
 
 			<!-- Modal -->
 			<section v-if="load_modal">
-				<modal :user_data="this.user" />
+				<modal :user_data="this.user" :roles="this.roles"/>
 			</section>
 		</div>
 	</div>
@@ -59,6 +61,7 @@ export default {
 			load_modal: false,
 			users: [],
 			user: null,
+			roles: [],
 		};
 	},
 	components: {
@@ -66,10 +69,19 @@ export default {
 	},
 	created() {
 		this.index()
+		this.getAllRoles()
 	},
 	methods: {
 		async index() {
 			await this.getUsers()
+		},
+		async getAllRoles() {
+			try {
+				const { data } = await axios.get('/Users/GetAllRoles')
+				this.roles = data.roles
+			} catch (error) {
+				console.log(error);
+			}
 		},
 		async getUsers() {
 			this.load = false

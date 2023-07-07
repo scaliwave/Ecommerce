@@ -10,6 +10,14 @@
 				</div>
 				<div class="modal-body">
 					<form @submit.prevent="storeUser" enctype="multipart/form-data">
+						<div class="my-3">
+							<label for="role" class="form-label">Rol</label>
+							<select class="form-select" id="role" v-model="user.roles[0].name">
+								<option v-for="(role, index) in roles" :key="index">{{ role }}
+								</option>
+							</select>
+							<div class="text-danger" v-if="errors && errors.role">{{ errors.role[0] }}</div>
+						</div>
 						<div class="mb-3">
 							<label for="number_id" class="form-label">Cedula</label>
 							<input type="number" class="form-control" id="number_id" v-model="user.number_id">
@@ -42,18 +50,13 @@
 						</div>
 						<div class="mb-3">
 							<label for="password_confirmation" class="form-label">Confirmar contraseña</label>
-							<input type="password" class="form-control" id="password_confirmation" v-model="user.password_confirmation">
+							<input type="password" class="form-control" id="password_confirmation"
+								v-model="user.password_confirmation">
 							<div class="text-danger" v-if="errors && errors.password">{{ errors.password[0] }}</div>
 
 						</div>
-						<!--  -->
-						<!-- <div class="my-3">
-							<label for="categories" class="form-label">categorias</label>
-							<v-select :options="categories" v-model="user.category_id" :reduce="category => category.id"
-								label="name" :clearable="false">
-							</v-select>
-							<div class="text-danger" v-if="errors && errors.category_id">{{ errors.category_id[0] }}</div>
-						</div> -->
+
+
 
 						<hr>
 						<section class="d-flex justify-content-end">
@@ -74,40 +77,40 @@ export default {
 		return {
 			user: {},
 			is_create: true,
-			errors: null,
+			errors: {},
 		};
 	},
-	props: ['user_data'],
+	props: ['user_data', 'roles'],
 	created() {
 		this.index()
-		this.get
 	},
 	methods: {
 		index() {
-			// this.getCategories()
 			this.setUser()
 		},
 		setUser() {
-			if (!this.user_data) return
-			this.user = { ...this.user_data }
+			if (!this.user_data) {
+				this.user.roles = [{ name: ''}];
+				return
+			}
+			this.user = this.user_data
 			this.is_create = false
 		},
 		loadFormData() {
 			const form_data = new FormData()
-			form_data.append('number_id', this.user.number_id)
-			form_data.append('name', this.user.name)
-			form_data.append('last_name', this.user.last_name)
-			form_data.append('email', this.user.email)
-			form_data.append('cellphone', this.user.cellphone)
-			form_data.append('password', this.user.password)
-			form_data.append('password_confirmation', this.user.password_confirmation)
+			if (this.user.roles[0].name) form_data.append('role', this.user.roles[0].name)
+			if (this.user.number_id) form_data.append('number_id', this.user.number_id)
+			if (this.user.name) form_data.append('name', this.user.name)
+			if (this.user.last_name) form_data.append('last_name', this.user.last_name)
+			if (this.user.email)form_data.append('email', this.user.email)
+			if (this.user.cellphone) form_data.append('cellphone', this.user.cellphone)
+			if (this.user.password) form_data.append('password', this.user.password)
+			if (this.user.password_confirmation) form_data.append('password_confirmation', this.user.password_confirmation)
 			return form_data
 		},
 		async storeUser() {
-			console.log(this.is_create)
 			try {
 				const user_form = this.loadFormData()
-				console.log(user_form)
 				if (this.is_create) {
 					const response = await axios.post('/Users/CreateUser', user_form)
 					console.log(response)

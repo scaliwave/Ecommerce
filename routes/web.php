@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -13,6 +15,23 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
 
 
+Route::get('/test', function () {
+	//para crear un rol:
+	// Role::create(['name' => 'user']);
+
+	//para asignar roles:
+	// $users = User::get();
+	// foreach ($users as $user) {
+	// 	if ($user->number_id == 1004678652)
+	// 		$user->assignRole('admin');
+	// 	else
+	// 		$user->assignRole('user');
+	// }
+
+	// para traer todos los roles:
+	//return Role::all()->pluck('name')
+});
+
 // Home
 Route::get('/', [ProductController::class, 'showHomeWithProducts'])->name('home');
 
@@ -23,23 +42,27 @@ Route::group(['prefix' => 'Products', 'controller' => ProductController::class],
 	Route::get('/GetAnProduct/{product}', 'getAnProduct');
 
 	// admin Routes
-	Route::get('/', 'showProducts')->name('products');
-	Route::get('/GetAllProducts', 'getAllProducts');
-	Route::get('/GetAProduct/{product}', 'getAProduct');
-	Route::post('/SaveProduct', 'saveProduct');
-	Route::post('/UpdateProduct/{product}', 'updateProduct');
-	Route::delete('/DeleteAProduct/{product}', 'deleteProduct');
+	Route::group(['middleware' => ['auth', 'role:admin']], function () {
+		Route::get('/', 'showProducts')->name('products');
+		Route::get('/GetAllProducts', 'getAllProducts');
+		Route::get('/GetAProduct/{product}', 'getAProduct');
+		Route::post('/SaveProduct', 'saveProduct');
+		Route::post('/UpdateProduct/{product}', 'updateProduct');
+		Route::delete('/DeleteAProduct/{product}', 'deleteProduct');
+	});
 
 });
 
 // Users
-Route::group(['prefix' => 'Users', 'controller' => UserController::class], function () {
+Route::group(['prefix' => 'Users','middleware' => ['auth', 'role:admin'],
+	'controller' => UserController::class], function () {
 	// admin users
 	Route::get('/', 'showUsers')->name('users');
 	Route::get('/GetAllUsers', 'getAllUsers');
 	Route::post('/CreateUser', 'createUser');
 	Route::post('/UpdateUser/{user}', 'updateUser');
 	Route::delete('/DeleteUser/{user}', 'deleteUser');
+	Route::get('/GetAllRoles', 'getAllRoles');
 });
 
 // shopping_cart

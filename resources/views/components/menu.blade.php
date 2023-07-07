@@ -43,21 +43,22 @@
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                            {{-- Users --}}
-                            <a class="dropdown-item" href="{{ route('users') }}">
-                                Usuarios
-                            </a>
+                            @role('admin')
+                                {{-- Users --}}
+                                <a class="dropdown-item" href="{{ route('users') }}">
+                                    Usuarios
+                                </a>
 
-                            {{-- Products --}}
-                            <a class="dropdown-item" href="{{ route('products') }}">
-                                Productos
-                            </a>
+                                {{-- Products --}}
+                                <a class="dropdown-item" href="{{ route('products') }}">
+                                    Productos
+                                </a>
 
-							{{-- Categories --}}
-                            <a class="dropdown-item" href="{{ route('products') }}">
-                                Categorias
-                            </a>
-
+                                {{-- Categories --}}
+                                <a class="dropdown-item" href="{{ route('products') }}">
+                                    Categorias
+                                </a>
+                            @endrole
 
 
                             {{-- Logout --}}

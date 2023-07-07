@@ -14,14 +14,13 @@ class UpdateUserRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
+			'role' => ['required'],
 			'name' => ['required', 'string'],
 			'last_name' => ['required', 'string'],
 			'number_id' => ['required', 'numeric', "unique:users,number_id,{$this->user->id}"],
 			'email' => ['required', 'email', "unique:users,email,{$this->user->id}"],
 			'cellphone' => ['required', 'numeric', "unique:users,cellphone, {$this->user->id}"],
 			'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-			// 'role' => ['required'],
-
 		];
 	}
 
