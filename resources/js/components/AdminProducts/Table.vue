@@ -40,11 +40,20 @@ export default {
 					url: '/Products/GetAllProductsDataTable'
 				},
 				columns: [
-					{ data: 'image' },
+					{
+						data: 'image',
+						render: function (data, type) {
+							if (type === 'display' && data) {
+								return '<img src="/storage/images/' + data + '" alt="Imagen del producto" width="50" height="50">';
+							} else {
+								return data;
+							}
+						}
+					},
 					{ data: 'name' },
 					{ data: 'price' },
 					{ data: 'stock' },
-					{ data: 'category.name', searchable: false},
+					{ data: 'category.name', searchable: false },
 					{ data: 'action' }
 				]
 			})

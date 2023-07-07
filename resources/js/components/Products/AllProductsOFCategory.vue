@@ -4,11 +4,13 @@
 		<div class="list-group">
 			<div class="list-group-item" v-for="(product, index) in products_data" :key="product.id">
 				<div class="d-flex align-items-center">
-
-					<img v-if="(product.image)" :src="'/storage/images/' + product.image"
-						class="img-fluid" style="height: 150px">
-					<img v-else src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
-						class="img-fluid" style="height: 150px">
+					<div class="d-flex" style="width: 150px; height: 150px">
+					<img v-if="(product.image)" :src="'/storage/images/' + product.image" class="img-fluid"
+							style="height: 150px">
+						<img v-else
+							src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+							class="img-fluid" style="height: 150px">
+					</div>
 
 					<div class="mx-3" style="cursor: pointer" @click="openModal(product.id)">
 						<h5 class="mb-3">{{ product.name }}</h5>
@@ -59,7 +61,7 @@ export default {
 	methods: {
 		index() {
 			setTimeout(() => {
-				this.products_data = [...this.products]
+				this.products_data = this.products
 				this.load_data = true
 			}, 250)
 			this.load_data = false
