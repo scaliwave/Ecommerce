@@ -33,7 +33,6 @@
 
 <script>
 export default {
-	props: ['products_data'],
 	data() {
 		return {
 			products: [],
@@ -42,12 +41,18 @@ export default {
 	created() {
 		this.index()
 	},
-	mounted() {
-		$('#productsTable').DataTable()
-	},
 	methods: {
-		index() {
-			this.products = [...this.products_data]
+		async index() {
+			await this.getProducts()
+		},
+		async getProducts() {
+			try {
+				const { data } = await axios.get('/Products/GetAllProducts')
+				this.products = data.products
+			} catch (error) {
+				console.log(error);
+			}
+			$('#productsTable').DataTable()
 		},
 		async getProduct(product) {
 			try {
