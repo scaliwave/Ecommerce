@@ -8,7 +8,7 @@
 
 		<div class="card-body">
 			<section class="table-responsive" v-if="load">
-				<table class="table">
+				<table class="table" id="categoriesTable">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -38,7 +38,7 @@
 
 			<!-- Modal -->
 			<section v-if="load_modal">
-				<modal :category_data="this.category"/>
+				<modal :category_data="this.category" />
 			</section>
 		</div>
 	</div>
@@ -66,6 +66,8 @@ export default {
 	methods: {
 		async index() {
 			await this.getAllCategories()
+			this.dataTables()
+
 		},
 		async getAllCategories() {
 			this.load = false
@@ -73,9 +75,14 @@ export default {
 				const { data } = await axios.get('/Categories/GetAllCategories')
 				this.categories = data.categories
 				this.load = true
+
 			} catch (error) {
 				console.log(error);
 			}
+
+		},
+		dataTables() {
+			$('#categoriesTable').DataTable()
 		},
 		editCategory(category) {
 			this.category = category
@@ -126,6 +133,8 @@ export default {
 		closeModal() {
 			this.modal.hide()
 			this.getAllCategories()
+			setTimeout(() => {this.dataTables()},200)
+
 		}
 	},
 };

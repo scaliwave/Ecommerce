@@ -17,6 +17,8 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.10.5",
+        "datatables.net-bs5": "^1.13.5",
+        "jquery": "^3.7.0",
         "lodash": "^4.17.21",
         "path": "^0.12.7",
         "sweetalert": "^2.1.2",

@@ -1,5 +1,5 @@
 <template>
-	<table class="table">
+	<table class="table" id="productsTable">
 		<thead>
 			<tr>
 				<th>Imagen</th>
@@ -41,6 +41,9 @@ export default {
 	},
 	created() {
 		this.index()
+	},
+	mounted() {
+		$('#productsTable').DataTable()
 	},
 	methods: {
 		index() {

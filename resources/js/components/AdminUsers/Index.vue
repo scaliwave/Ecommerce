@@ -8,7 +8,7 @@
 
 		<div class="card-body">
 			<section class="table-responsive" v-if="load">
-				<table class="table">
+				<table class="table" id="userTable">
 					<thead>
 						<tr>
 							<th>CC</th>
@@ -71,9 +71,13 @@ export default {
 		this.index()
 		this.getAllRoles()
 	},
+	mounted() {
+
+	},
 	methods: {
 		async index() {
 			await this.getUsers()
+			this.dataTables()
 		},
 		async getAllRoles() {
 			try {
@@ -92,6 +96,9 @@ export default {
 			} catch (error) {
 				console.log(error);
 			};
+		},
+		dataTables () {
+			$('#userTable').DataTable()
 		},
 		editUser(user) {
 			this.user = user
@@ -142,6 +149,7 @@ export default {
 		closeModal() {
 			this.modal.hide()
 			this.getUsers()
+			setTimeout(() => {this.dataTables()},250)
 		}
 	}
 }
