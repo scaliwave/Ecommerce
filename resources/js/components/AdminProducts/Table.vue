@@ -6,6 +6,7 @@
 				<th>Nombre</th>
 				<th>precio</th>
 				<th>Stock</th>
+				<th>Categoria</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -20,6 +21,7 @@
 				<td>{{ product.name }}</td>
 				<td>$ {{ getNumberFormat(product.price) }}</td>
 				<td>{{ product.stock }}</td>
+				<td>{{ product.category_id }}</td>
 				<td>
 					<button class="btn btn-warning me-2" @click="getProduct(product)">Editar</button>
 					<button class="btn btn-danger" @click="deleteProduct(product)">Eliminar</button>

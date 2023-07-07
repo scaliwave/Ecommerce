@@ -112,8 +112,7 @@ export default {
 			try {
 				const user_form = this.loadFormData()
 				if (this.is_create) {
-					const response = await axios.post('/Users/CreateUser', user_form)
-					console.log(response)
+					await axios.post('/Users/CreateUser', user_form)
 					this.$parent.closeModal()
 
 					swal.fire({

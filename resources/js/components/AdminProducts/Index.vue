@@ -1,5 +1,5 @@
 <template>
-	<div class="card mx-5 my-5">
+	<div class="card mx-5 my-5 shadow">
 
 		<div class="card-header d-flex justify-content-between">
 			<h2>Productos</h2>

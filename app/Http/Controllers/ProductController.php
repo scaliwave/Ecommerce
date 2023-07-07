@@ -88,7 +88,7 @@ class ProductController extends Controller
 		$this->uploadImages($request, $product);
 		$requestAll['image'] = $product->image;
 		$product->update($requestAll);
-		return response()->json(['product' => $product->refresh()->load('Category')], 200);
+		return response()->json(['product' => $product->refresh()->load('Category')], 201);
 	}
 	public function deleteProduct(Product $product)
 	{

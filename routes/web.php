@@ -54,8 +54,11 @@ Route::group(['prefix' => 'Products', 'controller' => ProductController::class],
 });
 
 // Users
-Route::group(['prefix' => 'Users','middleware' => ['auth', 'role:admin'],
-	'controller' => UserController::class], function () {
+Route::group([
+	'prefix' => 'Users',
+	'middleware' => ['auth', 'role:admin'],
+	'controller' => UserController::class
+], function () {
 	// admin users
 	Route::get('/', 'showUsers')->name('users');
 	Route::get('/GetAllUsers', 'getAllUsers');
@@ -74,9 +77,17 @@ Route::group(['prefix' => 'ShoppingCart', 'controller' => Shopping_CartControlle
 
 });
 
-// categories
-Route::group(['prefix' => 'Categories', 'controller' => CategoryController::class], function () {
+// Categories
+Route::group([
+	'prefix' => 'Categories',
+	'middleware' => ['auth', 'role:admin'],
+	'controller' => CategoryController::class
+], function () {
+	Route::get('/', 'showCategories')->name('categories');
 	Route::get('/GetAllCategories', 'getAllCategories');
+	Route::post('/CreateCategory', 'createCategory');
+	Route::post('/UpdateCategory/{category}', 'updateCategory');
+	Route::delete('/DeleteCategory/{category}', 'deleteCategory');
 
 });
 

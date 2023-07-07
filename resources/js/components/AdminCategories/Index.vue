@@ -2,8 +2,8 @@
 	<div class="card mx-5 my-5">
 
 		<div class="card-header d-flex justify-content-between">
-			<h2>Usuarios</h2>
-			<button @click="openModal" class="btn btn-primary">Crear Usuario</button>
+			<h2>Categorias</h2>
+			<button @click="openModal" class="btn btn-primary">Crear Categoria</button>
 		</div>
 
 		<div class="card-body">
@@ -11,24 +11,18 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>CC</th>
-							<th>Nombres</th>
-							<th>Apellidos</th>
-							<th>Celular</th>
-							<th>Correo</th>
+							<th>#</th>
+							<th>Nombre</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(user, index) in users" :key="index">
-							<th>{{ user.number_id }}</th>
-							<td>{{ user.name }}</td>
-							<td>{{ user.last_name }}</td>
-							<td>{{ user.cellphone }}</td>
-							<td>{{ user.email }}</td>
+						<tr v-for="(category, index) in categories" :key="index">
+							<th>{{ index }}</th>
+							<td>{{ category.name }}</td>
 							<td>
-								<button class="btn btn-warning me-2" @click="editUser(user)">Editar</button>
-								<button class="btn btn-danger" @click="deleteUser(user)">Eliminar</button>
+								<button class="btn btn-warning me-2" @click="editCategory(category)">Editar</button>
+								<button class="btn btn-danger" @click="deleteCategory(category)">Eliminar</button>
 							</td>
 						</tr>
 					</tbody>
@@ -44,75 +38,65 @@
 
 			<!-- Modal -->
 			<section v-if="load_modal">
-				<modal :user_data="this.user" :roles="this.roles"/>
+				<modal :category_data="this.category"/>
 			</section>
 		</div>
 	</div>
 </template>
 
-
 <script>
 import Modal from './Modal.vue';
-
 export default {
 	data() {
 		return {
 			load: false,
 			load_modal: false,
-			users: [],
-			user: null,
-			roles: [],
+			categories: [],
+			category: null
+
 		};
 	},
+	props: {},
 	components: {
 		Modal
 	},
 	created() {
 		this.index()
-		this.getAllRoles()
 	},
 	methods: {
 		async index() {
-			await this.getUsers()
+			await this.getAllCategories()
 		},
-		async getAllRoles() {
+		async getAllCategories() {
+			this.load = false
 			try {
-				const { data } = await axios.get('/Users/GetAllRoles')
-				this.roles = data.roles
+				const { data } = await axios.get('/Categories/GetAllCategories')
+				this.categories = data.categories
+				this.load = true
 			} catch (error) {
 				console.log(error);
 			}
 		},
-		async getUsers() {
-			this.load = false
-			try {
-				const { data } = await axios.get('/Users/GetAllUsers')
-				this.users = data.users
-				this.load = true
-			} catch (error) {
-				console.log(error);
-			};
-		},
-		editUser(user) {
-			this.user = user
+		editCategory(category) {
+			this.category = category
 			this.openModal()
 		},
-		async deleteUser(user) {
+		async deleteCategory(category) {
 			try {
 				const result = await swal.fire({
 					icon: 'info',
-					title: '¿Quieres eliminar el usuario?',
+					title: '¿Quieres eliminar la categoria?',
 					showCancelButton: true,
 					confirmButtonText: 'Eliminar'
 				})
 				if (!result.isConfirmed) return
 
-				await axios.delete(`/Users/DeleteUser/${user.id}`)
-				this.getUsers()
+				await axios.delete(`/Categories/DeleteCategory/${category.id}`)
+				this.getAllCategories()
 				swal.fire({
 					icon: 'success',
 					title: 'Felicidades!',
-					text: 'Usuario Eliminado'
+					text: 'Categoria Eliminada'
 				})
 			} catch (error) {
 				console.log(error);
@@ -126,24 +110,23 @@ export default {
 		openModal() {
 			this.load_modal = true
 			setTimeout(() => {
-				this.modal = new bootstrap.Modal(document.getElementById('users_modal'), {
+				this.modal = new bootstrap.Modal(document.getElementById('categories_modal'), {
 					keyboard: false
 				})
 				this.modal.show()
 
 				//limpiar datos del modal
-				const modal = document.getElementById('users_modal')
+				const modal = document.getElementById('categories_modal')
 				modal.addEventListener('hidden.bs.modal', () => {
 					this.load_modal = false
-					this.user = null
+					this.category = null
 				})
 			}, 200)
 		},
 		closeModal() {
 			this.modal.hide()
-			this.getUsers()
+			this.getAllCategories()
 		}
-	}
-}
+	},
+};
 </script>
-
