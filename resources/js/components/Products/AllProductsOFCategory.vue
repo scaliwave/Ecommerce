@@ -2,7 +2,7 @@
 	<div class="container-responsive card shadow p-5">
 		<h3 class="mb-4">Todos los articulos de {{ category }}</h3>
 		<div class="list-group">
-			<div class="list-group-item" v-for="(product, index) in products_data" :key="product.id">
+			<div class="list-group-item" v-for="(product, index) in products_data" :key="index">
 				<div class="d-flex align-items-center">
 					<div class="d-flex" style="width: 150px; height: 150px">
 					<img v-if="(product.image)" :src="'/storage/images/' + product.image" class="img-fluid"

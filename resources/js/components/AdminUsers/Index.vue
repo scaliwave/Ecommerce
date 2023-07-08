@@ -1,5 +1,5 @@
 <template>
-	<div class="card mx-5 my-5">
+	<div class="card mx-5 my-5 shadow">
 
 		<div class="card-header d-flex justify-content-between">
 			<h2>Usuarios</h2>
@@ -16,6 +16,7 @@
 							<th>Apellidos</th>
 							<th>Celular</th>
 							<th>Correo</th>
+							<th>Rol</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -26,6 +27,7 @@
 							<td>{{ user.last_name }}</td>
 							<td>{{ user.cellphone }}</td>
 							<td>{{ user.email }}</td>
+							<td>{{ user.roles[0].name }}</td>
 							<td>
 								<button class="btn btn-warning me-2" @click="editUser(user)">Editar</button>
 								<button class="btn btn-danger" @click="deleteUser(user)">Eliminar</button>
@@ -77,7 +79,6 @@ export default {
 	methods: {
 		async index() {
 			await this.getUsers()
-			this.dataTables()
 		},
 		async getAllRoles() {
 			try {
@@ -96,6 +97,7 @@ export default {
 			} catch (error) {
 				console.log(error);
 			};
+			setTimeout(() => {this.dataTables()},150)
 		},
 		dataTables () {
 			$('#userTable').DataTable()
@@ -149,7 +151,7 @@ export default {
 		closeModal() {
 			this.modal.hide()
 			this.getUsers()
-			setTimeout(() => {this.dataTables()},250)
+
 		}
 	}
 }

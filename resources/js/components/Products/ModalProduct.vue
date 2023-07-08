@@ -12,9 +12,10 @@
 						<!-- seccion izquierda -->
 						<div class="card" style="width: 20rem;">
 
-							<img v-if="(data.image)" :src="'/storage/images/' + data.image"
-								class="card-img-top" alt="imagen">
-							<img v-else src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
+							<img v-if="(data.image)" :src="'/storage/images/' + data.image" class="card-img-top"
+								alt="imagen">
+							<img v-else
+								src="https://www.apcomputadores.com/wp-content/uploads/computador-de-mesa-dell-3681-sff-18-5-core-i3-4gb-ram-ddr4-1tb-hdd-600x600.jpg.webp"
 								class="card-img-top" alt="imagen">
 
 							<div class="card-body">
@@ -83,8 +84,6 @@ export default {
 			is_added: false,
 		};
 	},
-	components: {},
-
 	created() {
 		this.index()
 	},
@@ -101,7 +100,6 @@ export default {
 			return new Intl.NumberFormat("es-CL").format(price)
 		},
 		async addCart() {
-			//verificar si el usuario esta autenticado
 			if (this.is_auth) {
 				if (this.product_cant <= this.data.stock) {
 					this.warning_cant = false
@@ -112,15 +110,24 @@ export default {
 						price: this.data.price * this.product_cant
 					}
 					try {
-						await axios.post('/ShoppingCart/CreateShoppingCart', data)
+						await axios.post('/ShoppingCart/AddOrUpdateShoppingCart', data)
 						this.is_added = true
-					} catch (error) { console.log(error) }
-				}
-				else
+					} catch (error) {
+						if (error.response.status == 400) {
+							swal.fire({
+								icon: 'error',
+								title: 'La cantidad supera el stock en tu carrito!',
+							})
+						}
+						else console.log(error)
+
+					}
+				} else {
 					this.warning_cant = true
-			}
-			else
+				}
+			} else {
 				window.location.href = '/login'
+			}
 		},
 		//validar que no exista cantidad negativa
 		validateCant() {

@@ -76,6 +76,9 @@ Route::group(['prefix' => 'ShoppingCart', 'controller' => Shopping_CartControlle
 	Route::put('/UpdateShoppingCart/{user}', 'updateShoppingCart');
 	Route::delete('/DeleteShoppingCart/{user}/{product}', 'deleteShoppingCart');
 
+	Route::post('/AddOrUpdateShoppingCart', 'addOrUpdateToShoppingCart');
+
+
 });
 
 // Categories

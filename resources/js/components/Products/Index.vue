@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div class="row my-4" v-for="(products, index) in productsByCategory" :key="index">
+		<div class="row my-5" v-for="(products, index) in productsByCategory" :key="index">
 			<div class="d-flex align-items-center mb-2">
 				<h3>{{ index }}</h3>
 				<a @click="getAllProducts(index)" class="mx-2 text-decoration-none" style="cursor: pointer">
@@ -17,8 +17,10 @@
 						alt="producto" class="img-fluid">
 				</div>
 				<div class="my-3">
-					<h4>$ {{ getNumberFormat(product.price) }}</h4>
-					{{ product.name }}
+					<h3>$ {{ getNumberFormat(product.price) }}</h3>
+					<h5>{{ product.name }}</h5>
+					<p class="text-success mt-2" v-if="shouldShowFreeShipping(index)">Envío gratis</p>
+					<p class="text-danger mt-2" v-else>Oferta!</p>
 
 				</div>
 			</div>
@@ -100,6 +102,16 @@ export default {
 		// formatea el precio del producto
 		getNumberFormat(price) {
 			return new Intl.NumberFormat("es-CL").format(price)
+		},
+		shouldShowFreeShipping(index) {
+			// Generar un número aleatorio entre 0 y 1
+			const random = Math.random();
+
+			// Establecer un umbral para mostrar el párrafo
+			const threshold = 0.8;
+
+			// Si el número aleatorio es menor que el umbral, mostrar el párrafo
+			return random < threshold;
 		},
 		getAllProducts(category) {
 			window.location.href = `/Products/GetAllProductsOFCategory/${category}`

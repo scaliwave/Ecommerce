@@ -16,7 +16,7 @@ class CreateProductRequest extends FormRequest
         return [
 			'category_id' => ['required', 'numeric'],
             'name' => ['required', 'string'],
-			'description' => ['required', 'string', 'max:255'],
+			'description' => ['required', 'string', 'max:5000'],
 			'image' => ['required'],
 			'price' => ['required', 'numeric'],
 			'stock' => ['required', 'numeric'],
@@ -34,7 +34,7 @@ class CreateProductRequest extends FormRequest
 
 			'description.required' => 'La descripción es requerida.',
 			'description.string' => 'La descripción no es valida.',
-			'description.max' => 'La descripción es muy larga (max 255 caracteres)',
+			'description.max' => 'La descripción es muy larga (max 5000 caracteres)',
 
 			'image.required' => 'La imagen es requerida',
 

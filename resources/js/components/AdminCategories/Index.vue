@@ -1,5 +1,5 @@
 <template>
-	<div class="card mx-5 my-5">
+	<div class="card mx-5 my-5 shadow">
 
 		<div class="card-header d-flex justify-content-between">
 			<h2>Categorias</h2>
@@ -66,7 +66,6 @@ export default {
 	methods: {
 		async index() {
 			await this.getAllCategories()
-			this.dataTables()
 
 		},
 		async getAllCategories() {
@@ -79,6 +78,7 @@ export default {
 			} catch (error) {
 				console.log(error);
 			}
+			setTimeout(() => {this.dataTables()},150)
 
 		},
 		dataTables() {
@@ -133,7 +133,6 @@ export default {
 		closeModal() {
 			this.modal.hide()
 			this.getAllCategories()
-			setTimeout(() => {this.dataTables()},200)
 
 		}
 	},

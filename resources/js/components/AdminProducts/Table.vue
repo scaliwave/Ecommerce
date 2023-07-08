@@ -5,7 +5,7 @@
 				<tr>
 					<th>Imagen</th>
 					<th>Nombre</th>
-					<th>precio</th>
+					<th>Precio</th>
 					<th>Stock</th>
 					<th>Categoria</th>
 					<th>Acciones</th>
@@ -51,7 +51,7 @@ export default {
 						}
 					},
 					{ data: 'name' },
-					{ data: 'price' },
+					{ data: 'price'},
 					{ data: 'stock' },
 					{ data: 'category.name', searchable: false },
 					{ data: 'action' }
