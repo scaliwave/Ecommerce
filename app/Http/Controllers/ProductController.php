@@ -53,7 +53,6 @@ class ProductController extends Controller
 		$category = Category::where('name', $category_name)->first();
 		$products = $category->Products->where('stock', '>', 0);
 
-		// return response()->json(['products' => $products], 200);
 		return view('Products.ProductsOFCategory', compact('products', 'category_name','is_logged', 'id_user'));
 	}
 	public function getAnProduct(Product $product)

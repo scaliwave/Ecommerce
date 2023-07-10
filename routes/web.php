@@ -72,7 +72,7 @@ Route::group([
 // shopping_cart
 Route::group(['prefix' => 'ShoppingCart', 'controller' => Shopping_CartController::class], function () {
 	Route::post('/CreateShoppingCart', 'createShoppingCart');
-	Route::get('/MyCart/{user}', 'getMyShoppingCart')->name('shoppingCart');
+	Route::get('/MyCart', 'getMyShoppingCart')->name('shoppingCart');
 	Route::put('/UpdateShoppingCart/{user}', 'updateShoppingCart');
 	Route::delete('/DeleteShoppingCart/{user}/{product}', 'deleteShoppingCart');
 

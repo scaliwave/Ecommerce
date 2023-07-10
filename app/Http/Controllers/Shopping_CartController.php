@@ -16,9 +16,10 @@ class Shopping_CartController extends Controller
 		$shopping_cart->save();
 		response()->json(['shopping_cart' => $shopping_cart], 201);
 	}
-	public function getMyShoppingCart(User $user)
+	public function getMyShoppingCart()
 	{
-		$id_user = Auth::user()->id;
+		$user = Auth::user();
+		$id_user = $user->id;
 		$products = $user->Shopping_Carts()->with('Product')->get();
 		return view('ShoppingCarts.shoppingCart', compact('products', 'id_user'));
 	}
@@ -42,7 +43,7 @@ class Shopping_CartController extends Controller
 	// Actualizar el producto si se encuentra en el carrito o crear uno nuevo
 	public function addOrUpdateToShoppingCart(Request $request)
 	{
-		$user = auth()->user();
+		$user = Auth::user();
 		$product_id = $request->product_id;
 
 		// Obtener el producto y su stock

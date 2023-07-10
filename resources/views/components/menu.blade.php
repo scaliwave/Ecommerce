@@ -91,13 +91,6 @@
         </div>
     </div>
 </nav>
-
-@auth
-    <script>
-        const id_user = {{ Auth::id() }};
-    </script>
-@endauth
-
 <script>
     // Obtener el elemento del enlace del carrito
     function handleClick() {
@@ -106,8 +99,7 @@
         window.location.href = "{{ route('login') }}";
     @else
         // redirigir al carrito
-        const id_user = @json(Auth::id());
-        window.location.href = `/ShoppingCart/MyCart/${id_user}`;
+        window.location.href = `/ShoppingCart/MyCart`;
     @endguest
     }
 </script>

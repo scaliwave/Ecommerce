@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\User\CreateUserRequest;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\User\RegisterUserRequest;
 
 class RegisterController extends Controller
 {
@@ -19,9 +17,10 @@ class RegisterController extends Controller
 		$this->middleware('guest');
 	}
 
-	public function registerUser(CreateUserRequest $request)
+	public function registerUser(RegisterUserRequest $request)
 	{
 		$user = new User($request->all());
+		$user->assignRole('user');
 		$user->save();
 		return back()->with('success', 'Usuario registrado');
 	}

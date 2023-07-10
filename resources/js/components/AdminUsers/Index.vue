@@ -11,6 +11,7 @@
 				<table class="table" id="userTable">
 					<thead>
 						<tr>
+							<th>#</th>
 							<th>CC</th>
 							<th>Nombres</th>
 							<th>Apellidos</th>
@@ -22,6 +23,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(user, index) in users" :key="index">
+							<th>{{ index+1 }}</th>
 							<th>{{ user.number_id }}</th>
 							<td>{{ user.name }}</td>
 							<td>{{ user.last_name }}</td>
@@ -46,7 +48,7 @@
 
 			<!-- Modal -->
 			<section v-if="load_modal">
-				<modal :user_data="this.user" :roles="this.roles"/>
+				<modal :user_data="this.user" :roles="this.roles" />
 			</section>
 		</div>
 	</div>
@@ -97,9 +99,9 @@ export default {
 			} catch (error) {
 				console.log(error);
 			};
-			setTimeout(() => {this.dataTables()},150)
+			setTimeout(() => { this.dataTables() }, 150)
 		},
-		dataTables () {
+		dataTables() {
 			$('#userTable').DataTable()
 		},
 		editUser(user) {

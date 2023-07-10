@@ -3,6 +3,7 @@
 		<table class="table" id="productsTable" @click="getEvent">
 			<thead>
 				<tr>
+					<th>#</th>
 					<th>Imagen</th>
 					<th>Nombre</th>
 					<th>Precio</th>
@@ -40,6 +41,7 @@ export default {
 					url: '/Products/GetAllProductsDataTable'
 				},
 				columns: [
+					{data: 'id'},
 					{
 						data: 'image',
 						render: function (data, type) {
@@ -51,7 +53,7 @@ export default {
 						}
 					},
 					{ data: 'name' },
-					{ data: 'price'},
+					{ data: 'price' },
 					{ data: 'stock' },
 					{ data: 'category.name', searchable: false },
 					{ data: 'action' }

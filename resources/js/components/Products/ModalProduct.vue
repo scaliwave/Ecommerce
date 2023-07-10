@@ -135,7 +135,7 @@ export default {
 				this.product_cant = 1
 		},
 		getMyCart() {
-			window.location.href = `/ShoppingCart/MyCart/${this.id_user}`
+			window.location.href = '/ShoppingCart/MyCart'
 		}
 	}
 }
