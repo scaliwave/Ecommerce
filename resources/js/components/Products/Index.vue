@@ -8,8 +8,16 @@
 				</a>
 			</div>
 
-			<div v-for="product in products" :key="product.id" class="col-md card mx-2" @click="openModal(product.id)"
-				style="cursor: pointer">
+			<div
+				v-for="product in products"
+				:key="product.id"
+				class="col-md card mx-2 " @click="openModal(product.id)"
+				style="cursor: pointer; transition: box-shadow 0.3s ease, transform 0.3s ease; padding: 15px;"
+			:style="{ boxShadow: 'none', transform: 'scale(1)', 'transform-origin': 'center center' }"
+			@mouseover="setEffects"
+			@mouseleave="removeEffects"
+				>
+
 				<div class="row mt-3">
 					<img v-if="(product.image)" :src="'/storage/images/' + product.image" alt="producto" class="img-fluid">
 					<img v-else
@@ -115,7 +123,15 @@ export default {
 		},
 		getAllProducts(category) {
 			window.location.href = `/Products/GetAllProductsOFCategory/${category}`
-		}
+		},
+		setEffects(event) {
+			event.currentTarget.style.boxShadow = '0px 0px 10px 0px rgba(0, 0, 0, 0.3)';
+			event.currentTarget.style.transform = 'scale(1.05)';
+		},
+		removeEffects(event) {
+			event.currentTarget.style.boxShadow = 'none';
+			event.currentTarget.style.transform = 'scale(1)';
+		},
 	}
 
 }

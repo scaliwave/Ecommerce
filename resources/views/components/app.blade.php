@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Mercado Libre</title>
+    <title>EasyCommerce</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -18,7 +18,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body style="background-color: #e3e3e3">
+<body style="background-color: #dce2e4">
     {{-- Menu --}}
     <x-menu />
     {{-- Content --}}
